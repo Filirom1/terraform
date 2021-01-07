@@ -52,6 +52,9 @@ func FormatValue(v cty.Value, indent int) string {
 			return strconv.Quote(v.AsString())
 		case cty.Number:
 			bf := v.AsBigFloat()
+			if bf.IsInt() {
+				return bf.String()
+			}
 			return bf.Text('g', -1)
 		case cty.Bool:
 			if v.True() {
